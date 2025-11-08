@@ -1,105 +1,108 @@
-# DJS05: Show Detail Page with Routing and Navigation
+# 🎧 Podcast Explorer | DJS05 Project
 
-## Project Overview
-
-In this project, you will build a podcast show detail page as part of a larger podcast browsing app. When users select a show from the homepage or listing page, they should be taken to a dedicated page that displays all details about that show. The app will support dynamic routing so each show has its own unique URL.
-
-You will implement data fetching based on the show ID in the URL, handle loading and error states gracefully, and ensure a smooth user experience by preserving search filters and pagination when users navigate back to the homepage. Additionally, you will build a season navigation system allowing users to expand or switch between seasons to browse episodes efficiently.
-
-This project will demonstrate your ability to work with dynamic routes, manage state across pages, handle asynchronous data, and create a clean, maintainable React codebase.
-
-
-![alt text](<Show Page Podcast.png>)
-
+A responsive React web application that allows users to browse, search, and explore podcasts.  
+Each podcast links to its own detailed page with show information, seasons, and episodes fetched dynamically from an external API.
 
 ---
 
-## Core Objectives
+## 🚀 Features
 
-- Implement **dynamic routing** for unique show detail pages.
-- Pass the correct show ID via route parameters and use it to **fetch specific show data**.
-- Gracefully handle **loading, error, and empty states** during data fetching.
-- Display comprehensive show details including title, image, description, genres, and last updated date.
-- Preserve previous **filters and search state** when navigating back to the homepage.
-- Create an intuitive **season navigation** UI to expand and switch between seasons without excessive scrolling.
-- Display episode information clearly with numbering, titles, images, and shortened descriptions.
-- Maintain **high code quality** with documentation (JSDoc) and consistent formatting.
+### 🧭 Dynamic/ Routing
+
+Each podcast card links to a dedicated show detail page using **React Router** for seamless navigation.
+
+### ⏳ Loading, Error & Empty States
+
+Provides clear visual feedback when data is loading, when an error occurs, or when no episodes are available.
+
+### 🎧 Show Detail Page
+
+Displays a show’s **title**, **cover image**, **description**, **genres**, **last updated date**, **number of seasons**, and **total episodes**.
+
+### 🔄 Season Navigation
+
+Users can switch between seasons using an intuitive dropdown menu positioned on the right-hand side.
+
+### 📑 Episode List
+
+Each season displays its episodes with:
+
+- Episode number
+- Episode title
+- Shortened description
+- Season cover thumbnail
+
+### 🧩 Reusable Components
+
+Built with modular and reusable components (`ShowDetail`, `EpisodeCard`, `SeasonNav`, etc.) for cleaner architecture and scalability.
+
+### 🏷️ Back Navigation
+
+A **“← Back”** link allows users to return to the homepage while maintaining their previous filters and search state using `useSearchParams`.
+
+### 🖼️ Polished UI
+
+Features a modern, grid-based layout, clean typography, and accessible color contrast.
+
+### 📱 Fully Responsive
+
+Designed to adapt smoothly across different screen sizes — from mobile devices to large desktops.
 
 ---
 
-### API Endpoints
+## 🛠️ Technologies Used
 
-Data can be called via a `fetch` request to the following three endpoints. Note that there is not always a one-to-one mapping between endpoints and actual data structures. Also note that **\*`<ID>`** indicates where the dynamic ID for the requested item should be placed. For example: `[https://podcast-api.netlify.app/genre/3](https://podcast-api.netlify.app/genre/3)`\*
+- **React 18** (with Vite + ES Modules)
+- **React Router DOM v6**
+- **JavaScript (ES2020+)**
+- **CSS Grid / Flexbox**
+- **Vite** for development and build
+- **JSDoc** for documentation
 
-| URL                                          |                                                                                        |
-| -------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `https://podcast-api.netlify.app`            | Returns an array of PREVIEW                                                            |
-| `https://podcast-api.netlify.app/genre/<ID>` | Returns a GENRE object                                                                 |
-| `https://podcast-api.netlify.app/id/<ID>`    | Returns a SHOW object with several SEASON and EPISODE objects directly embedded within |
+---
 
-### Genre Titles
+## ⚙️ How It Works
 
-Since genre information is only exposed on `PREVIEW` by means of the specific `GENRE` id, it is recommended that you include the mapping between genre id values and title in your code itself:
+1. The **homepage** lists podcast shows in a grid layout.
+2. Users can filter shows by genre or search by title.
+3. Selecting a show navigates to `/show/:id` and dynamically fetches its details.
+4. While fetching data, a loading spinner is shown.
+5. If an error occurs, an error message is displayed.
+6. Once loaded, the show detail page displays:
+   - Cover image and title
+   - Description and genres
+   - Metadata: Last Updated, Total Seasons, Total Episodes
+7. A dropdown allows the user to switch between available seasons.
+8. The **Back** button preserves the homepage search and filters.
 
-| ID  | Title                    |
-| --- | ------------------------ |
-| 1   | Personal Growth          |
-| 2   | Investigative Journalism |
-| 3   | History                  |
-| 4   | Comedy                   |
-| 5   | Entertainment            |
-| 6   | Business                 |
-| 7   | Fiction                  |
-| 8   | News                     |
-| 9   | Kids and Family          |
+---
 
-## Deliverables
+## 💡 Example User Flows
 
-1. **Homepage / Listing Page**
+- Click **a podcast show tile** → loads detailed show info, genres, and seasons.
+- Use the **season dropdown** → changes to another season instantly.
+- Disconnect your internet → displays an error message gracefully.
+- If a season has no episodes → displays “No episodes available.”
+- Click **“← Back”** → returns to the homepage with filters and scroll position preserved.
 
-   - List of shows with clickable links or buttons that navigate to each show's detail page.
-   - Filters and search functionality that maintain state when navigating back from detail pages.
+These behaviors demonstrate dynamic routing, data persistence, and an optimized user experience aligned with the **DJS05** learning outcomes.
 
-2. **Dynamic Show Detail Page**
+---
 
-   - A unique page for each show, accessible via a dynamic route.
-   - Fetch and display show details including:
-     - Title
-     - Large podcast image
-     - Description
-     - Genre tags
-     - Last updated date (formatted)
-   - Display loading indicator while fetching data.
-   - Display user-friendly error message if fetching fails.
-   - Handle empty states gracefully (e.g., show not found).
+## 🧪 Setup Instructions
 
-3. **Season Navigation Component**
+### Installation
 
-   - UI to expand/collapse seasons.
-   - Show season title and episode count.
-   - List episodes per season including:
-     - Episode number
-     - Episode title
-     - Season image
-     - Shortened episode description
+```bash
+npm install
+npm run dev
+```
 
-4. **State Preservation**
+## 🔌 API
 
-   - Maintain applied filters and search terms when navigating back to the homepage from a show detail page.
-
-5. **Code Quality**
-
-   - Well-structured, modular React components.
-   - JSDoc comments for all major functions and modules.
-   - Consistent and readable formatting across all files.
-
-6. **Responsive Design**
-
-   - The UI adapts smoothly across different device sizes (mobile, tablet, desktop).
-
-7. **README Documentation**
-   - Brief project overview.
-   - Instructions for running the project locally.
-   - Description of main features and any known limitations.
+- **Base URL:** `https://podcast-api.netlify.app`
+- **Endpoints:**
+  - `/` — Podcast shows
+  - `/id/:id` — Show details and episodes
 
 ---
