@@ -88,7 +88,7 @@ const SeasonNavigation = ({ seasons }) => {
                             day: "numeric",
                           }
                         )
-                      : "No Date Available"}
+                      : "Release Date Unknown"}
                   </span>
 
                   <p>
