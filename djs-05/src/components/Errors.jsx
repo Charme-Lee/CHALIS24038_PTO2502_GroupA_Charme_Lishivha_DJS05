@@ -10,7 +10,7 @@ import React from "react";
  * @returns {JSX.Element} Error message component.
  */
 const ErrorMessage = ({ message }) => {
-  const isGenericFetchError = message?.includes("Failed to fetch");
+  const isGenericFetchError = message?.includes("Fetching data failed");
 
   const titleStyle = {
     fontSize: "1.1rem",
@@ -51,7 +51,7 @@ const ErrorMessage = ({ message }) => {
   return (
     <div style={containerStyle}>
       <strong style={titleStyle}>
-        {isGenericFetchError ? "Network Connection Error" : "An Error Occurred"}
+        {isGenericFetchError ? "Network Connection Error" : "Error Occurred"}
       </strong>
 
       <p style={messageStyle}>{message}</p>

@@ -27,7 +27,7 @@ main {
   box-sizing: border-box;
 }
 .control-input {
-  min-width: 200px;
+  min-width: 800px;
   padding-left: 15px;
   background-color: #f0f0f0;
   border: none;

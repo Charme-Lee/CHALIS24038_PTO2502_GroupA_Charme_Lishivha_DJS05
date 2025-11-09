@@ -1,4 +1,8 @@
-export const Genre_Titles = {
+/**
+ * Maps genre IDs to their string titles.
+ *
+ */
+export const GENRE_MAP = {
   1: "Personal Growth",
   2: "Investigative Journalism",
   3: "History",
@@ -7,9 +11,5 @@ export const Genre_Titles = {
   6: "Business",
   7: "Fiction",
   8: "News",
-  9: "Kids and Family",
+  9: "Kids & Family",
 };
-
-export function mapGenres(ids = []) {
-  return ids.map((id) => Genre_Titles[id] ?? `Genre ${id}`);
-}

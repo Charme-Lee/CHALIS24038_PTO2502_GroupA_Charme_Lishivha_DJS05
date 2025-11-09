@@ -1,5 +1,5 @@
 import React from "react";
-import "./Pagination.css";
+import "./pagination.css";
 
 /**
  * Displays pagination controls for navigating between multiple pages.

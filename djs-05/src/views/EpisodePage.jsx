@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import LoadingSpinner from "../components/LoadingSpinner";
-import Error from "../components/ErrorMessage";
-import SeasonNavigation from "../components/SeasonNavigation";
-import { GENRE_MAP } from "../utils/constants";
-import "./ShowDetailPage.css";
+import LoadingSpinner from "../components/loader";
+import ErrorMessage from "../components/Errors";
+import SeasonNavigation from "../components/SeasonNav";
+import { GENRE_MAP } from "../utils/genres";
+import "./EpisodePage.css";
 // import { formatDate } from "../utils/helpers";
 
 function formatDate(e) {
@@ -30,7 +30,7 @@ function formatDate(e) {
 /**
  * ShowDetailPage — robust handling for duplicated API data.
  */
-const ShowDetailPage = () => {
+const EpisodePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedSeason, setSelectedSeason] = useState(null);
@@ -228,4 +228,4 @@ const ShowDetailPage = () => {
   );
 };
 
-export default ShowDetailPage;
+export default EpisodePage;

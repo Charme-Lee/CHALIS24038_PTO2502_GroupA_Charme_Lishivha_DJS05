@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./SeasonNavigation.css";
+import "./SeasonNav.css";
 
 /**
  * A component to display season information and a list of episodes.

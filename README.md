@@ -95,7 +95,8 @@ These behaviors demonstrate dynamic routing, data persistence, and an optimized 
 
 ```bash
 npm install
-npm run dev
+npm install react-router-dom
+npm start ( Did not use Vite)
 ```
 
 ## 🔌 API

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { FilterContext } from "../context/FilterContext";
-import LoadingSpinner from "../components/LoadingSpinner";
-import ErrorMessage from "../components/ErrorMessage";
+import { FilterContext } from "../components/filter";
+import LoadingSpinner from "../components/loader";
+import ErrorMessage from "../components/Errors";
 // import formatDates from "../utils/helpers";
-import Pagination from "../components/Pagination";
-import { GENRE_MAP } from "../utils/constants";
+import Pagination from "../components/pagination";
+import { GENRE_MAP } from "../utils/genres";
 
-import "./HomePage.css";
+import "./Homepage.css";
 
 // How many shows to display per page (7 cards x 2 rows = 14)
 const SHOWS_PER_PAGE = 14;

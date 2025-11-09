@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
+import searchIcon from "../assets/Search-icon.png";
+import profileIcon from "../assets/Profile.png";
 
 /**
  * Renders the global application header with icon, title, and right-side actions.
@@ -21,14 +23,8 @@ const Header = () => {
 
         {/* Right-side section: search + profile */}
         <div className="header-actions">
-          <button className="search-button" aria-label="Search">
-            🔍
-          </button>
-          <img
-            className="profile-person"
-            src="/profile-person.png"
-            alt="Profile"
-          />
+          <img className="profile-person" src={searchIcon} alt="Search" />
+          <img className="profile-person" src={profileIcon} alt="Profile" />
         </div>
       </div>
     </header>
