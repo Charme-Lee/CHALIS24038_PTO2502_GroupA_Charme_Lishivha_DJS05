@@ -1,0 +1,208 @@
+.chip-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  background-color: #f2f2f2;
+  border-radius: 16px;
+  padding: 4px 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* --- Page Container --- */
+.show-detail-page {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+/* --- Back Link --- */
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-size: 1em;
+  font-weight: 600;
+  color: #878484;
+  text-decoration: none;
+}
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* --- Show Header (Desktop) --- */
+.show-header-card {
+  display: flex; /* Image left, content right */
+  gap: 30px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+}
+
+.show-image-main {
+  width: 500px;
+  height: 600px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.show-header-content {
+  flex-grow: 1;
+}
+
+.show-title-main {
+  margin: 0 0 15px 0;
+  font-size: 2.5em;
+  font-weight: 700;
+}
+
+.show-description {
+  font-size: 1em;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  width: 430px;
+}
+
+/* --- Show Metadata Grid --- */
+.show-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+.show-meta-grid div {
+  font-size: 0.9em;
+}
+.show-meta-grid strong {
+  color: #555;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  display: block;
+}
+.show-meta-grid p {
+  margin: 2px 0 0 0;
+  font-weight: 500;
+}
+
+/* --- Season & Episode Section (Desktop) --- */
+.season-section {
+  margin-top: 30px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+}
+
+.episode-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.episode-card {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  align-items: flex-start;
+}
+
+.episode-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.episode-content {
+  flex-grow: 1;
+}
+
+.episode-title {
+  margin: 0 0 5px 0;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.episode-description {
+  font-size: 0.9em;
+  color: #333;
+  margin: 0 0 10px 0;
+  line-height: 1.5;
+}
+
+.episode-audio-player {
+  width: 100%;
+  height: 40px;
+}
+
+/* --- Tablet & Phone (<= 768px) --- */
+@media (max-width: 768px) {
+  .show-image-main {
+    /* Full-width image */
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 0;
+  }
+
+  .show-header-content {
+    padding: 20px;
+  }
+
+  .show-title-main {
+    font-size: 1.8em;
+  }
+
+  .show-detail-page {
+    padding: 0;
+    margin: 0;
+  }
+
+  .back-link {
+    padding: 15px;
+    margin-bottom: 0;
+  }
+
+  /* --- Show Header (Mobile) --- */
+  .show-header-card {
+    /* Stack image on top of content */
+    flex-direction: column;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    gap: 0;
+  }
+
+  .show-meta-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  /* --- Season & Episode (Mobile) --- */
+  .season-section {
+    margin-top: 20px;
+    padding: 15px;
+    border: none;
+    border-radius: 0;
+  }
+
+  .episode-card {
+    /* Stack image on top of content for episodes */
+    flex-direction: column;
+    padding: 0;
+    gap: 10px;
+  }
+
+  .episode-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+}
