@@ -2,7 +2,7 @@
  * Maps genre IDs to their string titles.
  *
  */
-export const GENRE_MAP = {
+export const GENRE_TITLE = {
   1: "Personal Growth",
   2: "Investigative Journalism",
   3: "History",

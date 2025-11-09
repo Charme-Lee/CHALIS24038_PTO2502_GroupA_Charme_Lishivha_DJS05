@@ -2,7 +2,7 @@ import React from "react";
 import "./loader.css";
 
 /**
- * loading spinner.
+ * Loading spinner.
  * @returns {JSX.Element}A loading spinner.
  */
 const LoadingSpinner = () => {

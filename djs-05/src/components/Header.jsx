@@ -14,7 +14,6 @@ const Header = () => {
     <header className="app-header">
       <div className="header-content">
         <Link to="/" className="header-title-link" aria-label="Go to homepage">
-          {/* Decorative icon */}
           <span className="header-icon" aria-hidden="true">
             🎙️
           </span>

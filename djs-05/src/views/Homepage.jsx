@@ -1,29 +1,36 @@
+/**
+ * @file HomePage.jsx
+ * @description Displays the main landing page of the podcast app.
+ * Allows users to search, filter by genre, sort shows, and paginate through results.
+ */
+
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { FilterContext } from "../components/filter";
 import LoadingSpinner from "../components/loader";
 import ErrorMessage from "../components/Errors";
-// import formatDates from "../utils/helpers";
 import Pagination from "../components/pagination";
-import { GENRE_MAP } from "../utils/genres";
-
+import { GENRE_TITLE } from "../utils/genres";
 import "./Homepage.css";
 
-// How many shows to display per page (7 cards x 2 rows = 14)
+/** Number of podcast shows displayed per page. */
 const SHOWS_PER_PAGE = 14;
 
-// Date formatter
-
-/** Format ISO string like "3 November 2022" */
+/**
+ * Converts a raw date string (ISO or MM/DD/YYYY) into a readable, localized date format.
+ *
+ * @param {string} e - Date string from the API.
+ * @returns {string} Formatted date string like "November 3, 2025".
+ */
 function formatDate(e) {
   if (!e) return "";
   let d;
 
-  // Try parsing ISO format first
+  // Attempt ISO parsing first
   if (!isNaN(Date.parse(e))) {
     d = new Date(e);
   } else {
-    // Fallback for formats like "10/3/2025"
+    // Fallback for non-ISO formats like "10/3/2025"
     const [month, day, year] = e.split(/[\/\-]/).map(Number);
     d = new Date(year, month - 1, day);
   }
@@ -34,16 +41,26 @@ function formatDate(e) {
     day: "numeric",
   });
 }
+
 /**
- * Renders the home page, which displays a searchable, filterable,
- * and sortable list of all podcast shows with pagination.
+ * HomePage Component
  *
- * @returns {JSX.Element} The HomePage component.
+ * Renders the main view of all available podcasts. Supports:
+ * - Searching by title
+ * - Filtering by genre
+ * - Sorting alphabetically or by update date
+ * - Pagination across all shows
+ *
+ * @component
+ * @returns {JSX.Element} Rendered HomePage component.
  */
 const HomePage = () => {
+  // 🔸 Local state
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [allShows, setAllShows] = useState([]);
+
+  // 🔹 Global filter context
   const {
     searchTerm,
     setSearchTerm,
@@ -55,6 +72,9 @@ const HomePage = () => {
     setCurrentPage,
   } = useContext(FilterContext);
 
+  /**
+   * Fetch all podcast shows from the API once when component mounts.
+   */
   useEffect(() => {
     const fetchAllShows = async () => {
       try {
@@ -70,44 +90,65 @@ const HomePage = () => {
         setLoading(false);
       }
     };
+
     fetchAllShows();
   }, []);
 
+  /**
+   * Filters and sorts all shows according to the user’s selected
+   * genre, search term, and sorting preference.
+   */
   const filteredAndSortedShows = useMemo(() => {
     let shows = [...allShows];
 
+    // Genre filtering
     if (genreId) {
       shows = shows.filter((show) => show.genres.includes(Number(genreId)));
     }
+
+    // Search filtering
     if (searchTerm) {
       shows = shows.filter((show) =>
         show.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
-    // Sorting
-    if (sortOrder === "A-Z") {
-      shows.sort((a, b) => a.title.localeCompare(b.title));
-    } else if (sortOrder === "Z-A") {
-      shows.sort((a, b) => b.title.localeCompare(a.title));
-    } else if (sortOrder === "Newest") {
-      shows.sort((a, b) => new Date(b.updated) - new Date(a.updated));
-    } else if (sortOrder === "Oldest") {
-      shows.sort((a, b) => new Date(a.updated) - new Date(b.updated));
+    // Sorting options
+    switch (sortOrder) {
+      case "A-Z":
+        shows.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case "Z-A":
+        shows.sort((a, b) => b.title.localeCompare(a.title));
+        break;
+      case "Newest":
+        shows.sort((a, b) => new Date(b.updated) - new Date(a.updated));
+        break;
+      case "Oldest":
+        shows.sort((a, b) => new Date(a.updated) - new Date(b.updated));
+        break;
+      default:
+        break;
     }
+
     return shows;
   }, [allShows, searchTerm, sortOrder, genreId]);
 
+  /**
+   * Calculates the subset of shows to display on the current page.
+   */
   const paginatedShows = useMemo(() => {
     const startIndex = (currentPage - 1) * SHOWS_PER_PAGE;
     const endIndex = startIndex + SHOWS_PER_PAGE;
     return filteredAndSortedShows.slice(startIndex, endIndex);
   }, [filteredAndSortedShows, currentPage]);
 
+  /** Total number of pages based on filtered results. */
   const totalPageCount = Math.ceil(
     filteredAndSortedShows.length / SHOWS_PER_PAGE
   );
 
+  // 🔹 Event handlers
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
     setCurrentPage(1);
@@ -123,61 +164,65 @@ const HomePage = () => {
     setCurrentPage(1);
   };
 
-  const allGenreIds = Object.keys(GENRE_MAP);
+  // 🔹 All available genre IDs
+  const allGenreIds = Object.keys(GENRE_TITLE);
 
+  // === Render Guards ===
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error} />;
 
+  // === Main Render ===
   return (
-    <main>
-      {/* --- Control Panwl--- */}
-      <div className="control-panel">
+    <main className="homepage">
+      {/* === Control Panel === */}
+      <section className="control-panel">
+        {/* Search Input */}
         <div className="search-container">
           <input
             type="text"
-            placeholder="Search by title..."
-            className="control-input"
-            value={searchTerm}
-            onChange={handleSearchChange}
             id="search-input"
             name="search-input"
+            className="control-input"
+            placeholder="Search by title..."
+            value={searchTerm}
+            onChange={handleSearchChange}
           />
         </div>
+
+        {/* Genre + Sort Dropdowns */}
         <div className="control-group">
-          {" "}
           <select
+            id="genre-select"
+            name="genre-select"
             className="control-select"
             value={genreId || ""}
             onChange={handleGenreChange}
-            id="genre-select"
-            name="genre-select"
           >
             <option value="">All Genres</option>
             {allGenreIds.map((id) => (
               <option key={id} value={id}>
-                {GENRE_MAP[id]}
+                {GENRE_TITLE[id]}
               </option>
             ))}
           </select>
+
           <select
+            id="sort-select"
+            name="sort-select"
             className="control-select"
             value={sortOrder}
             onChange={handleSortChange}
-            id="sort-select"
-            name="sort-select"
           >
-            <option value="A-Z">Sort: A-Z</option>
-            <option value="Z-A">Sort: Z-A</option>
+            <option value="A-Z">Sort: A–Z</option>
+            <option value="Z-A">Sort: Z–A</option>
             <option value="Newest">Sort: Newest</option>
             <option value="Oldest">Sort: Oldest</option>
           </select>
         </div>
-      </div>
+      </section>
 
-      {/* --- Podcast Grid --- */}
-      <div className="podcast-grid">
-        {" "}
-        {/* Changed class */}
+      {/* === Podcast Grid === */}
+      <section className="podcast-grid">
         {paginatedShows.length > 0 ? (
           paginatedShows.map((show) => (
             <Link
@@ -185,24 +230,18 @@ const HomePage = () => {
               key={show.id}
               className="podcast-card"
             >
-              {" "}
               <img
                 src={show.image}
                 alt={`${show.title} cover`}
                 className="podcast-image"
-              />{" "}
-              {/* Changed class */}
+              />
               <div className="card-content">
-                {" "}
-                {/* Changed class */}
-                <h3 className="podcast-title">{show.title}</h3>{" "}
-                {/* Changed class */}
-                <p className="podcast-seasons">Seasons: {show.seasons}</p>{" "}
-                {/* Changed class */}
+                <h3 className="podcast-title">{show.title}</h3>
+                <p className="podcast-seasons">Seasons: {show.seasons}</p>
                 <p className="podcast-genre">
                   Genres:{" "}
                   {show.genres
-                    .map((id) => GENRE_MAP[id] || "Unknown")
+                    .map((id) => GENRE_TITLE[id] || "Unknown")
                     .join(", ")}
                 </p>
                 <p className="podcast-updated">
@@ -212,18 +251,18 @@ const HomePage = () => {
             </Link>
           ))
         ) : (
-          <p>No shows found for your current filters.</p>
+          <p className="no-results">No shows found on your current filters.</p>
         )}
-      </div>
+      </section>
 
-      {/* --- PAGINATION --- */}
-      <div className="pagination-controls">
+      {/* === Pagination === */}
+      <section className="pagination-controls">
         <Pagination
           currentPage={currentPage}
           totalPageCount={totalPageCount}
           onPageChange={setCurrentPage}
         />
-      </div>
+      </section>
     </main>
   );
 };
