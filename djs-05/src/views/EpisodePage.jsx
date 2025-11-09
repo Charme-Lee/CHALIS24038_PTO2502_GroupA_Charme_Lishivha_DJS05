@@ -228,24 +228,6 @@ const EpisodePage = () => {
           selectedSeason={selectedSeason}
           onSeasonSelect={(s) => setSelectedSeason(Number(s))}
         />
-
-        <div className="episode-list">
-          {!seasonData ? (
-            <p>No season selected or data available.</p>
-          ) : (
-            seasonData.episodes.map((episode, idx) => {
-              const key = episode?.episode ?? episode?.file ?? `idx-${idx}`;
-              return (
-                <div key={key} className="episode-item">
-                  <h3>
-                    Episode {episode.episode || idx + 1}: {episode.title}
-                  </h3>
-                  <p>{episode.description}</p>
-                </div>
-              );
-            })
-          )}
-        </div>
       </div>
     </main>
   );
