@@ -1,0 +1,55 @@
+/* src/components/Header.css */
+.app-header {
+  width: 100%;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+}
+
+.header-content {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+}
+
+.header-icon {
+  font-size: 1.8rem; /* Make emoji icon larger */
+  margin-right: 0.75rem;
+  user-select: none; /* Prevent the icon from being selected as text */
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  text-decoration: none;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* space between icons */
+}
+
+.profile-person {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.profile-person:hover {
+  transform: scale(1.1);
+  opacity: 0.85;
+}
