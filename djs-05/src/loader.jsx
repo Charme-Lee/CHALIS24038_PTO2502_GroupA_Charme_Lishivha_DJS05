@@ -1,15 +1,16 @@
-export default function Spinner({ label = "Loading…" }) {
+import React from "react";
+import "./LoadingSpinner.css";
+
+/**
+ * loading spinner.
+ * @returns {JSX.Element}A loading spinner.
+ */
+const LoadingSpinner = () => {
   return (
-    <div
-      className="spin-loader"
-      role="status"
-      aria-live="polite"
-      aria-label={label}
-    >
-      <div className="period" />
-      <div className="period" />
-      <div className="period" />
-      <span className="load">{label}</span>
+    <div className="spinner-container">
+      <div className="loading-spinner"></div>
     </div>
   );
-}
+};
+
+export default LoadingSpinner;
